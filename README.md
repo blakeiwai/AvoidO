@@ -3,10 +3,10 @@ Autonomous rover that detects incoming obstacles and chooses the best path aroun
 
 ## Process:
 
-1. Design Chassis in Solidworks to be 3D printed
+1. Design Chassis Assembly in Solidworks
 
-   * Create assembly complete with housing for all electronic components
-2. Learn how to drive the motors and use the sweeping ultrasonic function
+   * Assembly comes complete with housing for all electronic components
+2. Drive the motors and use the sweeping ultrasonic function
 3. Assemble and test robot
 
    * Fine-tune motors to drive in a straight line
