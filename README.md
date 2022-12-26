@@ -9,15 +9,26 @@ Future iterations of this will focus on implementing a cleaning mechanism that e
 
 1. Design Chassis Assembly in Solidworks
 
-   * Assembly comes complete with housing for all electronic components
+   * Complete the robot assembly with housing for all electronic components
+   * Ultrasonic sensor has to be pointing towards the front end of the chassis and attached to a sweeper servo (90 degrees)
 2. Drive the motors and use the sweeping ultrasonic function
 3. Assemble and test robot
 
    * Fine-tune motors to drive in a straight line
 
-### Final Assembly of Robot
+## Final Assembly of Robot
 
 ![finalproduct](https://user-images.githubusercontent.com/109624276/209011483-974c34bf-84ae-4801-a71a-f2e3e1f66a8e.jpg)
+
+## Components Used:
+
+* Ultrasonic Sensor (HC-SR04)
+* 4 x DC Gearbox Motors
+* Arduino Uno
+* Adafruit Motor Shield v2
+* SG90 Servo Motor
+* 9 Volt Battery
+* Jumper Wires
 
 ## Approximate Rover Radius
 
@@ -25,84 +36,18 @@ The red circle is thick on purpose! According to the datasheet, this ultrasonic 
 
 ![roverradius](https://user-images.githubusercontent.com/109624276/209019045-7b107efd-9642-4583-9cb6-770a47c04432.jpg)
 
+## Arduino and Adafruit Motor Shield V2:
 
-## Sweep Function Test
+Refer to the official [website](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/install-headers) for more detailed information. The Adafruit Motor Shield offers a simple way to drive the servo motors with two dedicated 5V connections. Adafruit has also created an Arduino library that makes communication with the motors very simple
 
-This section to tests out how to code the ultrasonic sensor and implement it with the Arduino and micro servo. The annotated code below shows which pins to connect to on the board (ensure the VCC pin is connected to 5V) as well as how each block works.
+* Ensure you have the Arduino [IDE](https://www.arduino.cc/en/software) installed
+* In the IDE make sure you also install the [library](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/install-software) (Link to V2 library)
 
-```
-// Blake Iwaisako
-// 11 August 2022
+In this repository I have all the code I used to test each part of the project including:
+* Driving the Motors
+* Sweeping the Ultrasonic Sensor
+* Ultrasonic Sensor Calibration
 
-#include <Servo.h>
+## Putting it all together
 
-Servo sweepServo;
-
-const int trig = 12;  // Trig pin 
-const int echo = 13;  // Echo pin
-int pos = 0;          // Initial position integer
-long dur;             // Initialize long variables: duration of ultrasonic pulse 
-long tocm;            // microseconds to cm variable
-bool returningToZero; // Create boolean for returning to zero
-
-void setup() {
-  Serial.begin(9600);        // Connect to serial monitor
-  pinMode(echo, INPUT);      // echo pin corresponds to "echo" on Ultrasonic Sensor
-  pinMode(trig, OUTPUT);     // "trig" pin on sensor
-  sweepServo.attach(9);
-  sweepServo.write(0);
-}
-
-bool objectDetected(long tocm)    // Create boolean to detect object 
-{
-  if (tocm < 20)     // Any objects within 20 cm will be noticed
-  {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void loop()
-{
-  digitalWrite(trig, LOW);    // Momentarily turns off trigger
-  delayMicroseconds(2);       
-  digitalWrite(trig, HIGH);   // Turn on trigger to send a pulse for 
-  delayMicroseconds(10);      // 10 microseconds
-  digitalWrite(trig, LOW);    // Turn off trigger 
-  dur = pulseIn(echo, HIGH);      // Records ultrasonic pulse via the echo pin
-  tocm = microsecondsToCentimeters(dur);    // Determine in cm distance of object based on pulse duration
-  if (objectDetected(tocm))       // If variable tocm is within 20 cm threshold
-  {
-    Serial.print("Object detected. Object's distance: ");   // This block prints out the distance of the detected object
-    Serial.print(tocm);                                     // and the angle of the servo in which the object was found
-    Serial.print(". Servo's angle: ");                      // this stops the servo from sweeping as long as the object is seen
-    Serial.println(pos);
-  } else {
-    if (pos < 180 && returningToZero == false)    // This block rotates the servo in intervals of 10cm back and forth
-    {
-      sweepServo.write(pos);
-      pos += 10;
-      Serial.print("Searching for object. Servo's angle: ");
-      Serial.println(pos);
-      if (pos == 180)                   // When the servo reaches the maximum angle 180 it returns to zero
-        returningToZero = true;
-    } else if (returningToZero == true) {
-      pos -= 10;
-      Serial.print("Searching for object. Servo's angle: ");
-      Serial.println(pos);
-      sweepServo.write(pos);
-      if (pos == 0)                    // When the servo reaches minimum angle it returns to zero
-        returningToZero = false;    
-    }
-  }
-  delay(200);
-}
-
-long microsecondsToCentimeters(long microseconds)   // Converter for microseconds to cm
-{
-  return microseconds / 29.155 / 2;
-}
-```
-
-
+Assembly of the robot was about 20% of the project, 80% of the time was spent writing and debugging code ensuring it does what I want it to.  
