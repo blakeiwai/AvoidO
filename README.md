@@ -5,7 +5,7 @@ Covid gave me a chance to look at the devices used around my house, such as my r
 
 Future iterations of this will focus on implementing a cleaning mechanism that either sweeps up or vacuums up debris. The plan is to develop a better roomba than the one currently sold by iRobot.
 
-## Process:
+## Process
 
 1. Design Chassis Assembly in Solidworks
 
@@ -20,7 +20,7 @@ Future iterations of this will focus on implementing a cleaning mechanism that e
 
 ![finalproduct](https://user-images.githubusercontent.com/109624276/209011483-974c34bf-84ae-4801-a71a-f2e3e1f66a8e.jpg)
 
-## Components Used:
+## Components Used
 
 * Ultrasonic Sensor (HC-SR04)
 * 4 x DC Gearbox Motors
@@ -36,7 +36,7 @@ The red circle is thick on purpose! According to the datasheet, this ultrasonic 
 
 ![roverradius](https://user-images.githubusercontent.com/109624276/209019045-7b107efd-9642-4583-9cb6-770a47c04432.jpg)
 
-## Arduino and Adafruit Motor Shield V2:
+## Arduino and Adafruit Motor Shield V2
 
 Refer to the official [website](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/install-headers) for more detailed information. The Adafruit Motor Shield offers a simple way to drive the servo motors with two dedicated 5V connections. Adafruit has also created an Arduino library that makes communication with the motors very simple
 
@@ -50,4 +50,4 @@ In this repository I have all the code I used to test each part of the project i
 
 ## Putting it all together
 
-Assembly of the robot was about 20% of the project, 80% of the time was spent writing and debugging code ensuring it does what I want it to.  
+Assembly of the robot was about 20% of the project, most of the time was spent writing and debugging code ensuring it does what I want it to. 
