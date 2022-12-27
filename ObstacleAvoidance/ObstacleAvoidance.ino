@@ -1,5 +1,7 @@
-// Blake Iwaisako
+// Implemented by Blake Iwaisako
 // 1 August 2022
+
+// Code made available by Micheal Klements from the-diy-life.com
 
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
